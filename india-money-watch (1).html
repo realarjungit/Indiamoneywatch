@@ -1,0 +1,2179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>India Money Watch — What PM Modi's May 10 Speech Really Means</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --paper:        #f5f1e8;
+    --paper-2:      #ebe4d3;
+    --paper-3:      #faf7ef;
+    --ink:          #161513;
+    --ink-2:        #2d2a26;
+    --ink-soft:     #4a463f;
+    --rule:         #c9bfa8;
+    --rule-soft:    #ddd4be;
+    --oxblood:      #6b1d1d;
+    --oxblood-2:    #8b2a2a;
+    --gold:         #b8893a;
+    --gold-2:       #d4a857;
+    --gold-soft:    #e8d6a8;
+    --teal:         #1e544f;
+    --red:          #a8321f;
+    --amber:        #c98a1a;
+    --green:        #4a6b3a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(22,21,19,0.05) 1px, transparent 0),
+      linear-gradient(180deg, rgba(184,137,58,0.025) 0%, transparent 60%);
+    background-size: 28px 28px, 100% 100%;
+  }
+  .container { max-width: 1480px; margin: 0 auto; padding: 0 36px; }
+  ::selection { background: var(--ink); color: var(--gold-2); }
+
+  /* ===== TICKER ===== */
+  .ticker-bar {
+    background: var(--ink); color: var(--paper-3);
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; letter-spacing: 0.04em;
+    position: relative;
+  }
+  .ticker-bar::before, .ticker-bar::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
+  }
+  .ticker-bar::before { left: 0; background: linear-gradient(90deg, var(--ink), transparent); }
+  .ticker-bar::after { right: 0; background: linear-gradient(270deg, var(--ink), transparent); }
+  .ticker-track {
+    display: inline-flex; white-space: nowrap;
+    animation: scroll 90s linear infinite; padding: 12px 0;
+  }
+  .ticker-item { padding: 0 28px; display: inline-flex; align-items: center; gap: 10px; }
+  .ticker-label { color: #b8a982; text-transform: uppercase; font-size: 10px; }
+  .ticker-val { color: var(--paper-3); }
+  .ticker-chg-up { color: #d97259; }
+  .ticker-chg-dn { color: #6fa860; }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ===== MASTHEAD ===== */
+  .masthead {
+    border-bottom: 3px double var(--ink);
+    padding: 28px 0 22px;
+    background: var(--paper-3);
+    position: relative;
+  }
+  .masthead::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -3px;
+    height: 1px; background: var(--ink);
+  }
+  .masthead-inner { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; }
+  .brand .crest {
+    font-family: 'Fraunces', serif; font-weight: 900;
+    font-size: 11.5px; letter-spacing: 0.45em; color: var(--oxblood);
+    margin-bottom: 6px; text-transform: uppercase;
+  }
+  .brand .crest::before { content: '◆ '; color: var(--gold); font-weight: 400; }
+  .brand h1 {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: 52px; letter-spacing: -0.025em; line-height: 0.92;
+    color: var(--ink);
+  }
+  .brand h1 em { font-style: italic; color: var(--oxblood); font-weight: 500; }
+  .brand .strap {
+    margin-top: 8px;
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 14.5px; color: var(--ink-soft);
+  }
+  .masthead-meta {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; line-height: 1.75; color: var(--ink-soft);
+  }
+  .masthead-meta .vol { color: var(--ink); font-weight: 700; }
+  .masthead-meta .classified {
+    display: inline-block; border: 1px solid var(--oxblood); color: var(--oxblood);
+    padding: 3px 10px; letter-spacing: 0.25em; font-size: 9.5px; margin-bottom: 8px;
+    background: rgba(107,29,29,0.04);
+  }
+
+  /* ===== SUB-NAV ===== */
+  .subnav {
+    border-bottom: 1px solid var(--rule);
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(250, 247, 239, 0.94);
+  }
+  .subnav-inner { display: flex; gap: 0; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; scrollbar-width: thin; }
+  .subnav-inner::-webkit-scrollbar { height: 2px; }
+  .subnav-inner::-webkit-scrollbar-thumb { background: var(--rule); }
+  .subnav a {
+    color: var(--ink-soft); text-decoration: none;
+    padding: 14px 18px; border-right: 1px solid var(--rule-soft);
+    text-transform: uppercase; white-space: nowrap; transition: all 0.18s;
+  }
+  .subnav a:hover { background: var(--ink); color: var(--paper-3); }
+  .subnav a:first-child { border-left: 1px solid var(--rule-soft); }
+  .subnav .nav-spacer { flex: 1; border-right: 1px solid var(--rule-soft); }
+  .subnav .nav-meta {
+    padding: 14px 18px; color: var(--oxblood); font-weight: 700;
+    white-space: nowrap; display: flex; align-items: center; gap: 8px;
+  }
+  .nav-meta::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--oxblood); animation: blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  /* ===== HERO ===== */
+  .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--rule); position: relative; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; top: -120px; right: -80px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(107,29,29,0.06), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 56px; align-items: start; position: relative; z-index: 1; }
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.32em;
+    color: var(--oxblood); margin-bottom: 22px;
+    display: flex; gap: 14px; align-items: center;
+  }
+  .hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--oxblood); }
+  .hero h2 {
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: 76px; line-height: 1.0; letter-spacing: -0.028em;
+    color: var(--ink); margin-bottom: 32px;
+  }
+  .hero h2 em { font-style: italic; color: var(--oxblood); }
+  .hero h2 .strike {
+    text-decoration: line-through;
+    text-decoration-color: var(--gold);
+    text-decoration-thickness: 4px;
+  }
+  .hero-lede {
+    font-family: 'Fraunces', serif; font-size: 20px; line-height: 1.6;
+    color: var(--ink-2); border-left: 3px solid var(--oxblood);
+    padding-left: 24px; max-width: 760px; font-weight: 400;
+  }
+  .hero-lede strong { color: var(--ink); font-weight: 600; }
+
+  /* Stress score panel */
+  .stress-panel {
+    background: var(--ink); color: var(--paper-3);
+    padding: 32px 30px; position: relative; overflow: hidden;
+    border-top: 4px solid var(--oxblood);
+  }
+  .stress-panel::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, transparent 0%, rgba(184,137,58,0.10) 100%),
+      radial-gradient(circle at 100% 0%, rgba(212,168,87,0.08), transparent 50%);
+    pointer-events: none;
+  }
+  .stress-panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .stress-panel .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.32em; color: var(--gold-2);
+  }
+  .stress-panel .timestamp {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #8a8268;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .stress-panel .timestamp::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: #6fa860; animation: blink 1.6s infinite;
+  }
+  .stress-score { display: flex; align-items: baseline; gap: 12px; font-family: 'Fraunces', serif; }
+  .stress-score .num {
+    font-size: 108px; font-weight: 600; line-height: 0.88; color: var(--paper-3);
+    letter-spacing: -0.04em;
+  }
+  .stress-score .of { font-size: 19px; color: #8a8268; }
+  .stress-meter { margin-top: 18px; height: 5px; background: #2a2724; position: relative; }
+  .stress-meter-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--amber) 50%, var(--red)); }
+  .stress-marker {
+    position: absolute; top: -4px; width: 2px; height: 13px; background: var(--paper-3);
+    box-shadow: 0 0 0 1px var(--ink), 0 0 8px rgba(212,168,87,0.4);
+  }
+  .stress-zones {
+    display: flex; justify-content: space-between; margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a8268; letter-spacing: 0.12em;
+  }
+  .stress-zones span:nth-child(4) { color: var(--gold-2); }
+  .stress-readout {
+    margin-top: 20px; padding-top: 18px; border-top: 1px solid #2a2724;
+    font-size: 13px; line-height: 1.65; color: #d9d2bd;
+  }
+  .stress-readout strong { color: var(--gold-2); }
+
+  .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 32px; }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em;
+    padding: 6px 12px; border: 1px solid var(--ink);
+    color: var(--ink); text-transform: uppercase; background: transparent;
+  }
+  .pill.red { background: var(--oxblood); color: var(--paper-3); border-color: var(--oxblood); }
+  .pill.gold { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+  .pill.outline { background: var(--paper-3); }
+
+  /* ===== SECTION HEADERS ===== */
+  section { padding: 72px 0; border-bottom: 1px solid var(--rule); }
+  .sec-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 44px; gap: 40px; flex-wrap: wrap; }
+  .sec-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.32em; color: var(--oxblood); margin-bottom: 10px;
+  }
+  .sec-title {
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: 46px; line-height: 1.0; letter-spacing: -0.022em;
+    color: var(--ink); max-width: 820px;
+  }
+  .sec-title em { font-style: italic; color: var(--oxblood); }
+  .sec-sub {
+    font-size: 14.5px; line-height: 1.65;
+    color: var(--ink-soft); max-width: 460px;
+    border-left: 2px solid var(--rule); padding-left: 16px;
+  }
+
+  /* ===== READINGS BAND ===== */
+  .readings-band { background: var(--ink); color: var(--paper-3); padding: 0; border-top: 4px solid var(--gold); }
+  .readings-band .container { padding-top: 28px; padding-bottom: 28px; }
+  .readings-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; }
+  .reading-cell { padding: 0 20px; border-right: 1px solid #2a2724; }
+  .reading-cell:last-child { border-right: none; }
+  .reading-cell:first-child { padding-left: 0; }
+  .reading-k {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.18em; color: var(--gold-2);
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .reading-v {
+    font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600;
+    line-height: 1; color: var(--paper-3);
+  }
+  .reading-v .unit { font-size: 13px; color: #8a8268; font-weight: 400; margin-left: 3px; }
+  .reading-d {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    margin-top: 6px; color: #d97259;
+  }
+  .reading-d.dn { color: #6fa860; }
+
+  /* ===== PLAIN ENGLISH BAND ===== */
+  .plain-band {
+    background: var(--gold-soft);
+    border-top: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    padding: 36px 0;
+  }
+  .plain-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
+  .plain-block {
+    border-left: 3px solid var(--oxblood);
+    padding-left: 20px;
+  }
+  .plain-block .pk {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.25em; color: var(--oxblood);
+    margin-bottom: 10px; text-transform: uppercase;
+  }
+  .plain-block .pt {
+    font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600;
+    line-height: 1.2; color: var(--ink); margin-bottom: 10px;
+  }
+  .plain-block .pd {
+    font-size: 14px; line-height: 1.6; color: var(--ink-2);
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline { position: relative; padding: 24px 0; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; right: 0; top: 66px;
+    height: 2px; background: var(--ink);
+  }
+  .timeline-track {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; position: relative;
+  }
+  .tl-event {
+    cursor: pointer; transition: all 0.22s;
+    background: var(--paper-3); border: 1px solid var(--rule);
+    padding: 20px 18px; margin-top: 88px; position: relative;
+  }
+  .tl-event::before {
+    content: ''; position: absolute; top: -29px; left: 20px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--ink); z-index: 2;
+  }
+  .tl-event::after {
+    content: ''; position: absolute; top: -22px; left: 27px;
+    width: 1px; height: 22px; background: var(--ink);
+  }
+  .tl-event.critical::before {
+    background: var(--oxblood); border-color: var(--oxblood);
+    box-shadow: 0 0 0 4px rgba(107,29,29,0.12);
+  }
+  .tl-event.warning::before {
+    background: var(--gold); border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(184,137,58,0.15);
+  }
+  .tl-event:hover {
+    transform: translateY(-4px); border-color: var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .tl-event.open { border-color: var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+  .tl-date {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.18em; color: var(--oxblood);
+    margin-bottom: 10px; font-weight: 600;
+  }
+  .tl-title {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: 17px; line-height: 1.2; color: var(--ink); margin-bottom: 10px;
+  }
+  .tl-summary { font-size: 12.5px; line-height: 1.55; color: var(--ink-soft); }
+  .tl-expand-cue {
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.2em; color: var(--oxblood);
+  }
+  .tl-detail { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .tl-event.open .tl-detail {
+    max-height: 480px;
+    margin-top: 14px; padding-top: 14px;
+    border-top: 1px dashed var(--rule);
+  }
+  .tl-detail-row { font-size: 12px; line-height: 1.55; color: var(--ink-2); margin-bottom: 10px; }
+  .tl-detail-row strong {
+    display: block;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.2em; color: var(--oxblood);
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+
+  /* ===== POLICY INTENT ===== */
+  .policy-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+    border: 1px solid var(--ink); background: var(--paper-3);
+  }
+  .policy-card {
+    padding: 32px 24px; border-right: 1px solid var(--rule);
+    transition: background 0.2s; cursor: default; position: relative;
+  }
+  .policy-card:last-child { border-right: none; }
+  .policy-card:hover { background: var(--paper-2); }
+  .policy-num {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 36px; color: var(--gold);
+    line-height: 1; margin-bottom: 16px; font-weight: 500;
+  }
+  .policy-quote {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+    font-size: 18px; line-height: 1.25; color: var(--ink);
+    margin-bottom: 18px; min-height: 70px;
+  }
+  .policy-quote::before { content: '“'; color: var(--oxblood); margin-right: 1px; }
+  .policy-quote::after { content: '”'; color: var(--oxblood); margin-left: 1px; }
+  .policy-arrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.25em; color: var(--oxblood);
+    margin-bottom: 12px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .policy-real {
+    font-family: 'Fraunces', serif; font-size: 14.5px;
+    line-height: 1.5; color: var(--ink); margin-bottom: 14px;
+  }
+  .policy-real strong { color: var(--oxblood); font-weight: 600; }
+  .policy-fx {
+    margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--rule);
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.1em; color: var(--ink-soft); line-height: 1.5;
+  }
+  .policy-fx strong { color: var(--oxblood); }
+
+  /* ===== HISTORICAL ANALOGS ===== */
+  .analog-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; }
+  .analog-list { display: flex; flex-direction: column; gap: 18px; }
+  .analog-card {
+    background: var(--paper-3); border: 1px solid var(--rule);
+    padding: 24px 26px; cursor: pointer; transition: all 0.2s; position: relative;
+  }
+  .analog-card.active {
+    border-color: var(--ink); background: var(--paper-2);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .analog-card:hover { border-color: var(--ink); }
+  .analog-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 10px; gap: 12px; flex-wrap: wrap;
+  }
+  .analog-name {
+    font-family: 'Fraunces', serif; font-size: 24px;
+    font-weight: 600; color: var(--ink); letter-spacing: -0.01em;
+  }
+  .analog-period {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-soft); letter-spacing: 0.12em;
+  }
+  .analog-blurb { font-size: 13px; line-height: 1.55; color: var(--ink-2); margin-bottom: 14px; }
+  .analog-sim { display: flex; align-items: center; gap: 12px; }
+  .sim-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.2em; color: var(--ink-soft);
+  }
+  .sim-bar { flex: 1; height: 6px; background: var(--paper-2); position: relative; }
+  .sim-fill {
+    height: 100%; background: linear-gradient(90deg, var(--gold), var(--oxblood));
+    transition: width 0.6s ease;
+  }
+  .sim-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 14px;
+    font-weight: 700; color: var(--oxblood);
+  }
+  .analog-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .analog-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.12em; padding: 4px 9px;
+    background: var(--paper); border: 1px solid var(--rule);
+    color: var(--ink-soft); text-transform: uppercase;
+  }
+
+  .analog-detail {
+    background: var(--ink); color: var(--paper-3);
+    padding: 36px; position: sticky; top: 80px;
+    border-top: 4px solid var(--gold);
+  }
+  .analog-detail h4 {
+    font-family: 'Fraunces', serif; font-size: 28px;
+    margin-bottom: 4px; color: var(--paper-3); letter-spacing: -0.015em;
+  }
+  .analog-detail .meta {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    color: var(--gold-2); letter-spacing: 0.18em; margin-bottom: 18px;
+  }
+  .analog-detail .story {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 14.5px; line-height: 1.6; color: #d9d2bd; margin-bottom: 22px;
+    padding-bottom: 18px; border-bottom: 1px solid #2a2724;
+  }
+  .analog-detail h5 {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.25em; color: var(--gold-2);
+    margin: 22px 0 10px; text-transform: uppercase;
+    padding-bottom: 6px; border-bottom: 1px solid #2a2724;
+  }
+  .analog-detail ul { list-style: none; }
+  .analog-detail li {
+    font-size: 12.5px; line-height: 1.65; color: #d9d2bd;
+    padding-left: 16px; position: relative; margin-bottom: 4px;
+  }
+  .analog-detail li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+  .analog-outcome-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;
+  }
+  .outcome-cell { background: #2a2724; padding: 12px 14px; border-left: 2px solid var(--gold); }
+  .outcome-cell .k {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.2em; color: #8a8268; text-transform: uppercase;
+  }
+  .outcome-cell .v {
+    font-family: 'Fraunces', serif; font-size: 17px;
+    color: var(--paper-3); margin-top: 4px; font-weight: 500;
+  }
+
+  /* ===== STRESS GRID ===== */
+  .stress-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--paper-3); border: 1px solid var(--rule);
+    padding: 20px 18px; position: relative; transition: all 0.25s;
+  }
+  .stat-card:hover { box-shadow: 4px 4px 0 var(--ink); border-color: var(--ink); }
+  .stat-card.warn { border-top: 4px solid var(--gold); }
+  .stat-card.alert { border-top: 4px solid var(--oxblood); }
+  .stat-card.ok { border-top: 4px solid var(--teal); }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.2em; color: var(--ink-soft);
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .stat-val {
+    font-family: 'Fraunces', serif; font-size: 32px; font-weight: 600;
+    color: var(--ink); line-height: 1; letter-spacing: -0.015em;
+  }
+  .stat-val .unit { font-size: 14px; color: var(--ink-soft); font-weight: 400; margin-left: 3px; }
+  .stat-delta {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    margin-top: 10px; display: flex; align-items: center; gap: 6px;
+  }
+  .stat-delta.up { color: var(--oxblood); }
+  .stat-delta.dn { color: var(--teal); }
+  .stat-context {
+    font-family: 'Inter', sans-serif; font-size: 12px;
+    color: var(--ink-soft); margin-top: 10px;
+    padding-top: 10px; border-top: 1px dashed var(--rule); line-height: 1.4;
+  }
+  .stat-context strong { color: var(--ink); font-weight: 600; }
+
+  .chart-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; margin-top: 8px; }
+  .chart-box {
+    background: var(--paper-3); border: 1px solid var(--rule);
+    padding: 24px 28px; position: relative;
+  }
+  .chart-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 20px;
+  }
+  .chart-title {
+    font-family: 'Fraunces', serif; font-size: 19px;
+    font-weight: 600; color: var(--ink);
+  }
+  .chart-cap {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-soft); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .chart-canvas { position: relative; height: 300px; }
+  .chart-note {
+    margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--rule);
+    font-size: 13px; line-height: 1.55; color: var(--ink-2);
+  }
+  .chart-note strong { color: var(--oxblood); }
+
+  /* ===== HEATMAP ===== */
+  .heatmap-section {
+    margin-top: 24px;
+    background: var(--paper-3); border: 1px solid var(--rule);
+    padding: 26px 28px;
+  }
+  .heatmap-grid {
+    display: grid; grid-template-columns: 200px repeat(12, 1fr);
+    gap: 3px; margin-top: 16px;
+  }
+  .heat-header {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.1em; color: var(--ink-soft);
+    text-transform: uppercase; padding: 8px 4px; text-align: center;
+  }
+  .heat-row-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    color: var(--ink); padding: 12px 8px;
+    display: flex; align-items: center;
+  }
+  .heat-cell {
+    aspect-ratio: 1; min-height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    font-weight: 600; cursor: default; transition: transform 0.15s;
+  }
+  .heat-cell:hover { transform: scale(1.15); z-index: 2; box-shadow: 0 0 0 1px var(--ink); }
+  .heat-legend {
+    display: flex; gap: 14px; margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-soft); letter-spacing: 0.1em; align-items: center;
+  }
+  .heat-legend-bar {
+    display: inline-flex; height: 12px; width: 200px;
+    background: linear-gradient(90deg, #4a6b3a, #d4a857, #a8321f);
+    border: 1px solid var(--rule);
+  }
+
+  /* ===== TRANSMISSION ===== */
+  .transmission { background: var(--paper-3); border: 1px solid var(--ink); padding: 40px; position: relative; }
+  .tx-toggle {
+    display: flex; gap: 0; margin-bottom: 32px;
+    border: 1px solid var(--ink); width: fit-content;
+  }
+  .tx-toggle button {
+    background: transparent; border: none; cursor: pointer;
+    padding: 11px 24px; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em; color: var(--ink);
+    text-transform: uppercase; border-right: 1px solid var(--ink); transition: all 0.2s;
+  }
+  .tx-toggle button:last-child { border-right: none; }
+  .tx-toggle button.active { background: var(--ink); color: var(--paper-3); }
+  .tx-toggle button:hover:not(.active) { background: var(--paper-2); }
+
+  .tx-flow {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; position: relative; margin-top: 8px;
+  }
+  .tx-col { padding: 0 16px; border-right: 1px dashed var(--rule); position: relative; }
+  .tx-col:last-child { border-right: none; }
+  .tx-col h6 {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.25em; color: var(--oxblood);
+    margin-bottom: 20px; text-transform: uppercase;
+    padding-bottom: 10px; border-bottom: 2px solid var(--oxblood);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .tx-col h6 .order-num {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 18px; color: var(--gold);
+  }
+  .tx-node {
+    background: var(--paper); border: 1px solid var(--rule);
+    padding: 14px 16px; margin-bottom: 12px;
+    cursor: pointer; transition: all 0.25s; position: relative;
+  }
+  .tx-node:hover { background: var(--paper-2); border-color: var(--ink); }
+  .tx-node.lit {
+    background: var(--ink); color: var(--paper-3);
+    border-color: var(--ink); transform: translateX(6px);
+    box-shadow: -4px 4px 0 var(--gold);
+  }
+  .tx-node.lit .tx-node-title { color: var(--gold-2); }
+  .tx-node-title {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: 14.5px; color: var(--ink);
+    margin-bottom: 5px; line-height: 1.2;
+  }
+  .tx-node-desc { font-size: 12px; line-height: 1.55; color: var(--ink-soft); }
+  .tx-node.lit .tx-node-desc { color: #c9c0a8; }
+  .tx-affected { margin-top: 32px; padding-top: 26px; border-top: 1px solid var(--rule); }
+  .tx-affected h6 {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.25em; color: var(--oxblood);
+    margin-bottom: 14px; text-transform: uppercase;
+  }
+  .tx-groups { display: flex; gap: 10px; flex-wrap: wrap; }
+  .tx-group {
+    border: 1px solid var(--ink); padding: 7px 14px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink); background: var(--paper); transition: all 0.2s;
+  }
+  .tx-group:hover { background: var(--ink); color: var(--paper-3); }
+
+  /* ===== HOUSEHOLD SIM ===== */
+  .sim-section { background: var(--ink); color: var(--paper-3); padding: 72px 0; }
+  .sim-section .sec-title { color: var(--paper-3); }
+  .sim-section .sec-title em { color: var(--gold-2); }
+  .sim-section .sec-sub { color: #b8a982; border-color: #2a2724; }
+  .sim-section .sec-num { color: var(--gold-2); }
+  .sim-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 40px; align-items: start; }
+  .persona-list { display: flex; flex-direction: column; gap: 8px; }
+  .persona {
+    background: #2a2724; border: 1px solid #3a352e;
+    padding: 18px 20px; cursor: pointer; transition: all 0.22s; position: relative;
+  }
+  .persona:hover { background: #322f2a; }
+  .persona.active {
+    background: var(--paper); color: var(--ink);
+    border-color: var(--gold); box-shadow: -6px 6px 0 var(--gold);
+    transform: translateX(4px);
+  }
+  .persona-name {
+    font-family: 'Fraunces', serif; font-size: 18px;
+    font-weight: 600; margin-bottom: 4px;
+  }
+  .persona-sub {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: #8a8268; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .persona.active .persona-sub { color: var(--oxblood); }
+
+  .sim-display {
+    background: #2a2724; padding: 40px;
+    border: 1px solid #3a352e; border-top: 4px solid var(--gold);
+  }
+  .sim-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid #3a352e;
+    padding-bottom: 20px; margin-bottom: 24px;
+  }
+  .sim-header h4 {
+    font-family: 'Fraunces', serif; font-size: 28px;
+    color: var(--paper-3); letter-spacing: -0.015em;
+  }
+  .sim-header .meta {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.15em; color: var(--gold-2);
+    text-transform: uppercase; text-align: right;
+  }
+
+  .sim-impact-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-bottom: 26px; border: 1px solid #3a352e;
+  }
+  .impact-cell { padding: 18px 20px; border-right: 1px solid #3a352e; }
+  .impact-cell:last-child { border-right: none; }
+  .impact-k {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.2em; color: #8a8268;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .impact-v {
+    font-family: 'Fraunces', serif; font-size: 28px;
+    font-weight: 600; color: var(--paper-3); line-height: 1; letter-spacing: -0.015em;
+  }
+  .impact-v.red { color: #e57b66; }
+  .impact-v.amber { color: var(--gold-2); }
+
+  .sim-narrative {
+    font-family: 'Fraunces', serif; font-size: 16.5px;
+    line-height: 1.65; color: #d9d2bd;
+    border-left: 2px solid var(--gold); padding-left: 18px;
+    margin-bottom: 26px; font-style: italic;
+  }
+  .sim-behaviors h6 {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.25em; color: var(--gold-2); margin-bottom: 12px;
+  }
+  .sim-behaviors ul { list-style: none; }
+  .sim-behaviors li {
+    font-size: 13px; line-height: 1.75; color: #d9d2bd;
+    padding-left: 20px; position: relative;
+  }
+  .sim-behaviors li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+
+  /* ===== SCENARIOS ===== */
+  .scen-tabs { display: flex; gap: 0; border: 1px solid var(--ink); margin-bottom: 36px; }
+  .scen-tab {
+    flex: 1; padding: 22px 22px; cursor: pointer;
+    background: var(--paper-3); border-right: 1px solid var(--ink);
+    transition: all 0.22s; position: relative;
+  }
+  .scen-tab:last-child { border-right: none; }
+  .scen-tab:hover:not(.active) { background: var(--paper-2); }
+  .scen-tab.active { background: var(--ink); color: var(--paper-3); }
+  .scen-tab.active::before {
+    content: ''; position: absolute; top: -1px; left: -1px; right: -1px;
+    height: 3px; background: var(--gold);
+  }
+  .scen-tab-name {
+    font-family: 'Fraunces', serif; font-size: 21px;
+    font-weight: 600; margin-bottom: 6px; letter-spacing: -0.01em;
+  }
+  .scen-tab-prob {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.1em; color: var(--oxblood);
+  }
+  .scen-tab.active .scen-tab-prob { color: var(--gold-2); }
+  .scen-prob-bar { margin-top: 10px; height: 3px; background: rgba(0,0,0,0.08); }
+  .scen-tab.active .scen-prob-bar { background: rgba(255,255,255,0.15); }
+  .scen-prob-fill { height: 100%; background: var(--oxblood); transition: width 0.4s; }
+  .scen-tab.active .scen-prob-fill { background: var(--gold-2); }
+
+  .scen-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .scen-info {
+    background: var(--paper-3); border: 1px solid var(--rule);
+    padding: 36px; border-top: 4px solid var(--oxblood);
+  }
+  .scen-info h4 {
+    font-family: 'Fraunces', serif; font-size: 32px;
+    margin-bottom: 6px; letter-spacing: -0.015em;
+  }
+  .scen-info .scen-meta {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--oxblood); letter-spacing: 0.18em;
+    margin-bottom: 22px; text-transform: uppercase;
+  }
+  .scen-explainer {
+    font-family: 'Fraunces', serif; font-size: 15px;
+    line-height: 1.6; color: var(--ink-2);
+    padding: 16px 18px; background: var(--paper);
+    border-left: 3px solid var(--oxblood); margin-bottom: 22px; font-style: italic;
+  }
+  .scen-vars {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  }
+  .scen-var { padding: 14px 18px; background: var(--paper); border-left: 3px solid var(--oxblood); }
+  .scen-var-k {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.2em; color: var(--ink-soft);
+    text-transform: uppercase; margin-bottom: 5px;
+  }
+  .scen-var-v {
+    font-family: 'Fraunces', serif; font-size: 17px;
+    font-weight: 600; color: var(--ink);
+  }
+  .scen-radar {
+    background: var(--paper-3); border: 1px solid var(--rule); padding: 32px;
+  }
+  .scen-radar canvas { width: 100% !important; height: 380px !important; }
+
+  /* ===== GEO MAP ===== */
+  .geo-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px; align-items: start; }
+  .geo-map { background: var(--paper-3); border: 1px solid var(--ink); padding: 28px; position: relative; }
+  .geo-map svg { width: 100%; height: auto; display: block; }
+  .geo-side { display: flex; flex-direction: column; gap: 14px; }
+  .geo-card {
+    background: var(--paper-3); border: 1px solid var(--rule);
+    padding: 22px 24px; transition: all 0.2s;
+  }
+  .geo-card:hover { border-color: var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+  .geo-card.alert { border-left: 4px solid var(--oxblood); }
+  .geo-card.warn { border-left: 4px solid var(--gold); }
+  .geo-card h5 {
+    font-family: 'Fraunces', serif; font-size: 18px;
+    font-weight: 600; margin-bottom: 8px;
+  }
+  .geo-card-meta {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.22em; color: var(--oxblood);
+    margin-bottom: 12px; text-transform: uppercase;
+    display: flex; justify-content: space-between;
+  }
+  .geo-card-meta .risk {
+    color: var(--ink); background: var(--gold-soft); padding: 2px 8px;
+  }
+  .geo-card p { font-size: 13.5px; line-height: 1.6; color: var(--ink-2); }
+
+  /* ===== ASYMMETRY TABLE ===== */
+  .asym-section {
+    background: var(--paper-3); border: 1px solid var(--ink); padding: 36px;
+  }
+  .asym-table {
+    width: 100%; border-collapse: collapse;
+    font-family: 'Inter', sans-serif; font-size: 13px;
+  }
+  .asym-table thead th {
+    text-align: left; padding: 14px 18px;
+    background: var(--ink); color: var(--gold-2);
+    font-weight: 600; letter-spacing: 0.15em; font-size: 10px;
+    text-transform: uppercase; border-right: 1px solid #2a2724;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .asym-table thead th:last-child { border-right: none; }
+  .asym-table tbody td {
+    padding: 18px 18px; border-bottom: 1px solid var(--rule);
+    vertical-align: top; line-height: 1.55;
+  }
+  .asym-table tbody tr:hover td { background: var(--paper); }
+  .asym-table tbody tr:last-child td { border-bottom: none; }
+  .asym-cost {
+    font-family: 'Fraunces', serif; font-size: 16px;
+    font-weight: 600; color: var(--ink);
+  }
+  .asym-cost.red { color: var(--oxblood); }
+  .asym-cost.green { color: var(--teal); }
+
+  /* ===== CLOSING MEMO ===== */
+  .thesis-section { background: var(--paper-3); padding: 88px 0; }
+  .thesis-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 72px; }
+  .thesis-aside { position: sticky; top: 80px; }
+  .thesis-aside .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.32em; color: var(--oxblood); margin-bottom: 16px;
+  }
+  .thesis-aside h3 {
+    font-family: 'Fraunces', serif; font-size: 44px;
+    font-weight: 500; line-height: 1.0; letter-spacing: -0.025em;
+    margin-bottom: 22px;
+  }
+  .thesis-aside h3 em { color: var(--oxblood); font-style: italic; }
+  .thesis-aside .author {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-soft); border-top: 1px solid var(--rule);
+    padding-top: 16px; line-height: 1.75; margin-top: 32px;
+  }
+  .thesis-aside .author strong { color: var(--oxblood); }
+  .thesis-body p {
+    font-family: 'Fraunces', serif; font-size: 18.5px;
+    line-height: 1.7; color: var(--ink-2); margin-bottom: 24px;
+  }
+  .thesis-body p:first-child::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 80px; font-weight: 600; color: var(--oxblood);
+    float: left; line-height: 0.85;
+    margin-right: 14px; margin-top: 8px;
+  }
+  .thesis-body p strong { color: var(--ink); font-weight: 600; }
+  .thesis-body p em { color: var(--oxblood); font-style: italic; }
+  .thesis-horizons {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    margin: 40px 0;
+    border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
+  }
+  .horizon { padding: 26px 24px; border-right: 1px solid var(--rule); }
+  .horizon:last-child { border-right: none; }
+  .horizon-k {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.28em; color: var(--oxblood); margin-bottom: 10px;
+  }
+  .horizon-title {
+    font-family: 'Fraunces', serif; font-size: 22px;
+    font-weight: 600; margin-bottom: 12px; letter-spacing: -0.01em;
+  }
+  .horizon-text { font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+
+  /* ===== FOOTER ===== */
+  footer { background: var(--ink); color: #8a8268; padding: 56px 0 36px; }
+  .foot {
+    display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.7;
+  }
+  .foot .col-title {
+    color: var(--gold-2); letter-spacing: 0.2em;
+    font-size: 10px; margin-bottom: 12px; text-transform: uppercase;
+  }
+  .foot a { color: var(--paper-3); text-decoration: none; }
+  .foot-bottom {
+    margin-top: 36px; padding-top: 20px;
+    border-top: 1px solid #2a2724;
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    color: #5a5448; letter-spacing: 0.15em;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1100px) {
+    .hero h2 { font-size: 54px; }
+    .hero-grid, .analog-grid, .geo-grid, .sim-grid, .thesis-grid, .scen-detail, .plain-grid {
+      grid-template-columns: 1fr;
+    }
+    .timeline-track { grid-template-columns: 1fr 1fr; }
+    .timeline::before { display: none; }
+    .tl-event { margin-top: 24px; }
+    .tl-event::before, .tl-event::after { display: none; }
+    .stress-grid, .readings-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .policy-grid { grid-template-columns: 1fr 1fr; }
+    .policy-card { border-right: none; border-bottom: 1px solid var(--rule); }
+    .tx-flow { grid-template-columns: 1fr 1fr; }
+    .tx-col { border-right: none; border-bottom: 1px dashed var(--rule); padding-bottom: 16px; margin-bottom: 16px; }
+    .chart-row { grid-template-columns: 1fr; }
+    .scen-tabs { flex-wrap: wrap; }
+    .scen-tab { flex: 1 1 50%; border-bottom: 1px solid var(--ink); }
+    .analog-detail, .thesis-aside { position: relative; top: 0; }
+    .heatmap-grid { grid-template-columns: 140px repeat(12, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 0 20px; }
+    .hero h2 { font-size: 40px; }
+    .sec-title { font-size: 30px; }
+    .brand h1 { font-size: 34px; }
+    .timeline-track, .stress-grid, .readings-grid, .policy-grid, .tx-flow, .sim-impact-grid, .thesis-horizons {
+      grid-template-columns: 1fr;
+    }
+    .scen-vars { grid-template-columns: 1fr; }
+    .impact-cell { border-right: none !important; border-bottom: 1px solid #3a352e; }
+    .heatmap-grid { grid-template-columns: 110px repeat(6, 1fr); }
+    .heat-cell:nth-child(8n+8), .heat-cell:nth-child(8n+9), .heat-cell:nth-child(8n+10),
+    .heat-cell:nth-child(8n+11), .heat-cell:nth-child(8n+12), .heat-cell:nth-child(8n+13) { display: none; }
+    .heat-header:nth-child(n+8) { display: none; }
+  }
+
+  .fade-up { opacity: 0; transform: translateY(20px); transition: all 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-bar"><div class="ticker-track" id="ticker"></div></div>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="container masthead-inner">
+    <div class="brand">
+      <div class="crest">INDIA MONEY WATCH / SPECIAL ISSUE</div>
+      <h1>What PM Modi's <em>Speech</em> Actually Means</h1>
+      <div class="strap">A plain-English read of India's economic warning signs — May 2026.</div>
+    </div>
+    <div class="masthead-meta">
+      <span class="classified">PUBLIC BRIEF</span><br>
+      <span class="vol">FILED</span> · 13 MAY 2026 · 18:42 IST<br>
+      <span class="vol">FOCUS</span> · INDIA · CURRENCY · INFLATION<br>
+      <span class="vol">READING TIME</span> · 12 MINUTES
+    </div>
+  </div>
+</div>
+
+<!-- SUB-NAV -->
+<nav class="subnav">
+  <div class="container">
+    <div class="subnav-inner">
+      <a href="#thesis">01 · The Big Picture</a>
+      <a href="#timeline">02 · What Happened</a>
+      <a href="#intent">03 · Decoded</a>
+      <a href="#analogs">04 · Has This Happened Before</a>
+      <a href="#stress">05 · The Numbers</a>
+      <a href="#transmission">06 · How It Spreads</a>
+      <a href="#simulator">07 · What It Means For You</a>
+      <a href="#scenarios">08 · What Comes Next</a>
+      <a href="#geopolitics">09 · The World Map</a>
+      <a href="#asymmetry">10 · Why Act Now</a>
+      <a href="#memo">11 · The Bottom Line</a>
+      <div class="nav-spacer"></div>
+      <div class="nav-meta">LIVE · 18:42 IST</div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="thesis">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag">INDIA · MAY 2026 · WHAT'S REALLY HAPPENING</div>
+        <h2>India isn't <em>asking</em>. It's <span class="strike">advising</span> <em>worried.</em></h2>
+        <p class="hero-lede">
+          On <strong>10 May 2026</strong>, PM Modi told citizens to skip buying gold, take public transport instead of cars, use less cooking oil, and avoid foreign trips. Two days later, the government raised the gold import duty to <strong>15%</strong>. Then, on <strong>13 May</strong>, the rupee crashed past <strong>95 against the dollar</strong> — a record low. These weren't random lifestyle tips. They were warning signs from a government that knows something the public hasn't fully realized yet: <strong>India is quietly trying to protect its dollars before things get worse.</strong>
+        </p>
+        <div class="hero-pills">
+          <span class="pill red">RUPEE AT RECORD LOW</span>
+          <span class="pill gold">GOLD DUTY 15%</span>
+          <span class="pill outline">USD/INR 95.61</span>
+          <span class="pill outline">BRENT $104</span>
+          <span class="pill outline">CPI 6.4%</span>
+          <span class="pill outline">FX RESERVES $602B</span>
+        </div>
+      </div>
+
+      <aside class="stress-panel">
+        <div class="stress-panel-head">
+          <div class="label">INDIA STRESS METER</div>
+          <div class="timestamp">LIVE</div>
+        </div>
+        <div class="stress-score">
+          <span class="num" id="stressNum">0</span>
+          <span class="of">/ 100</span>
+        </div>
+        <div class="stress-meter">
+          <div class="stress-meter-fill"></div>
+          <div class="stress-marker" id="stressMarker" style="left: 78%;"></div>
+        </div>
+        <div class="stress-zones">
+          <span>CALM</span>
+          <span>WATCH</span>
+          <span>STRESS</span>
+          <span>DANGER</span>
+        </div>
+        <div class="stress-readout">
+          <strong>Reading: HIGH STRESS — but not a crisis yet.</strong> The pain is in two places: expensive oil and a weakening rupee. India still has <strong>$602 billion</strong> in foreign currency saved up, which is a thick safety cushion. But the government is acting <em>before</em> the problem gets worse — and that itself tells you something.
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE READINGS BAND -->
+<div class="readings-band">
+  <div class="container">
+    <div class="readings-grid" id="readingsGrid"></div>
+  </div>
+</div>
+
+<!-- PLAIN ENGLISH EXPLAINER -->
+<div class="plain-band">
+  <div class="container">
+    <div class="plain-grid">
+      <div class="plain-block">
+        <div class="pk">In one line</div>
+        <div class="pt">What's the problem?</div>
+        <div class="pd">India buys oil and gold from abroad using US dollars. When the world wants more dollars (or when India needs more), India's currency — the rupee — gets weaker. A weaker rupee makes everything we import more expensive: fuel, food, electronics, medicines.</div>
+      </div>
+      <div class="plain-block">
+        <div class="pk">In one line</div>
+        <div class="pt">Why is PM Modi asking us to cut back?</div>
+        <div class="pd">Every gold chain, every foreign trip, every litre of petrol you buy means India sends dollars abroad. If millions of people cut back even a little, India sends fewer dollars out — which slows down how fast the rupee is falling and how fast prices are rising.</div>
+      </div>
+      <div class="plain-block">
+        <div class="pk">In one line</div>
+        <div class="pt">Should I be worried?</div>
+        <div class="pd">Not panicked, but alert. India is in a "defensive" phase — like a country tightening its belt before things get rough. Petrol, food, and gold are likely to stay expensive for months. EMIs probably won't fall soon. Foreign travel and imported goods will pinch more.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 02 / WHAT HAPPENED</div>
+        <h3 class="sec-title">Six events. <em>One story.</em></h3>
+      </div>
+      <p class="sec-sub">Click any event to see why it matters. These six things happened in roughly two weeks — and they connect into a single chain that explains everything.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-track" id="timelineTrack"></div>
+    </div>
+  </div>
+</section>
+
+<!-- POLICY INTENT -->
+<section id="intent">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 03 / DECODING THE SPEECH</div>
+        <h3 class="sec-title">What was <em>said</em>. What it <em>actually means.</em></h3>
+      </div>
+      <p class="sec-sub">Each piece of "advice" from the speech is really about saving dollars. Here's what the government really meant when it spoke to citizens.</p>
+    </div>
+    <div class="policy-grid" id="policyGrid"></div>
+  </div>
+</section>
+
+<!-- HISTORICAL ANALOGS -->
+<section id="analogs">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 04 / HAS THIS HAPPENED BEFORE?</div>
+        <h3 class="sec-title">Yes. <em>Three times.</em></h3>
+      </div>
+      <p class="sec-sub">India has been here before — twice. And the world has been here once. Each time, the playbook was similar: tell people to cut back, tax imports, defend the currency. Click any card to see how each story unfolded.</p>
+    </div>
+    <div class="analog-grid">
+      <div class="analog-list" id="analogList"></div>
+      <div class="analog-detail" id="analogDetail"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STRESS DIAGNOSTICS -->
+<section id="stress">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 05 / THE NUMBERS</div>
+        <h3 class="sec-title">Six numbers that explain <em>everything.</em></h3>
+      </div>
+      <p class="sec-sub">These are the dashboard lights the government watches. Red means problem, yellow means watch closely, green means okay. Right now, four are red, two are yellow.</p>
+    </div>
+    <div class="stress-grid" id="stressGrid"></div>
+    <div class="chart-row">
+      <div class="chart-box">
+        <div class="chart-head">
+          <div class="chart-title">The Rupee and Oil — Walking Together</div>
+          <div class="chart-cap">PAST 12 MONTHS · MAY 2025 = 100</div>
+        </div>
+        <div class="chart-canvas"><canvas id="forexChart"></canvas></div>
+        <div class="chart-note"><strong>What this shows:</strong> When oil prices go up, the rupee gets weaker. Why? Because India needs more dollars to buy the same amount of oil. Over the past year, oil rose 28% and the rupee weakened sharply — passing 95 on 13 May for the first time ever.</div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-head">
+          <div class="chart-title">Where India's Import Money Goes</div>
+          <div class="chart-cap">MAY 2026 · MONTHLY · $31B TOTAL</div>
+        </div>
+        <div class="chart-canvas"><canvas id="deficitChart"></canvas></div>
+        <div class="chart-note"><strong>The bottom line:</strong> Oil and gold together are more than half of what India imports. That's why the speech targeted exactly these two things.</div>
+      </div>
+    </div>
+
+    <!-- HEATMAP -->
+    <div class="heatmap-section">
+      <div class="chart-head">
+        <div class="chart-title">Which Industries Will Hurt Most — Next 12 Months</div>
+        <div class="chart-cap">0 = NO PAIN · 10 = SEVERE PAIN · HOVER ANY CELL</div>
+      </div>
+      <div class="heatmap-grid" id="heatmapGrid"></div>
+      <div class="heat-legend">
+        <span>NO PAIN</span>
+        <span class="heat-legend-bar"></span>
+        <span>SEVERE PAIN</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSMISSION -->
+<section id="transmission">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 06 / HOW IT SPREADS</div>
+        <h3 class="sec-title">How a barrel of oil ends up in your <em>dal.</em></h3>
+      </div>
+      <p class="sec-sub">Hover any box to see the full chain. The same shock — expensive oil — moves through the economy in steps. By step 3, it shows up in your grocery bill.</p>
+    </div>
+    <div class="transmission">
+      <div class="tx-toggle">
+        <button class="active" data-chain="oil">OIL GOES UP</button>
+        <button data-chain="gold">GOLD DUTY GOES UP</button>
+        <button data-chain="inr">RUPEE FALLS</button>
+      </div>
+      <div class="tx-flow" id="txFlow"></div>
+      <div class="tx-affected">
+        <h6>WHO ENDS UP PAYING THE PRICE</h6>
+        <div class="tx-groups" id="txGroups"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOUSEHOLD SIM -->
+<section class="sim-section" id="simulator">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 07 / WHAT IT MEANS FOR YOU</div>
+        <h3 class="sec-title">The economy lands on a <em>kitchen counter.</em></h3>
+      </div>
+      <p class="sec-sub">Pick a profile that's closest to you. See what changes in your monthly budget and what people in that group are doing to cope.</p>
+    </div>
+    <div class="sim-grid">
+      <div class="persona-list" id="personaList"></div>
+      <div class="sim-display" id="simDisplay"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENARIOS -->
+<section id="scenarios">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 08 / WHAT COMES NEXT</div>
+        <h3 class="sec-title">Four possible futures. <em>One we expect.</em></h3>
+      </div>
+      <p class="sec-sub">Click any tab to see what's likely in each scenario. The percentages are our best guess about which one plays out.</p>
+    </div>
+    <div class="scen-tabs" id="scenTabs"></div>
+    <div class="scen-detail">
+      <div class="scen-info" id="scenInfo"></div>
+      <div class="scen-radar">
+        <div class="chart-head" style="margin-bottom: 12px;">
+          <div class="chart-title">How Bad Each Problem Gets</div>
+          <div class="chart-cap">1 = FINE · 5 = SEVERE</div>
+        </div>
+        <canvas id="radarChart"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GEOPOLITICS -->
+<section id="geopolitics">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 09 / THE WORLD MAP</div>
+        <h3 class="sec-title">A blocked Red Sea is an <em>Indian inflation</em> problem.</h3>
+      </div>
+      <p class="sec-sub">India buys 85% of its oil from abroad. Most of it travels through two narrow stretches of water. If anything goes wrong there, prices in your local market change within weeks.</p>
+    </div>
+    <div class="geo-grid">
+      <div class="geo-map">
+        <svg viewBox="0 0 820 480" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="dotsBg" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="0.6" fill="#c9bfa8" opacity="0.5"/>
+            </pattern>
+          </defs>
+          <rect x="0" y="0" width="820" height="480" fill="url(#dotsBg)"/>
+          <g stroke="#d9d0b9" stroke-width="0.4" fill="none">
+            <line x1="0" y1="120" x2="820" y2="120"/>
+            <line x1="0" y1="240" x2="820" y2="240"/>
+            <line x1="0" y1="360" x2="820" y2="360"/>
+            <line x1="205" y1="0" x2="205" y2="480"/>
+            <line x1="410" y1="0" x2="410" y2="480"/>
+            <line x1="615" y1="0" x2="615" y2="480"/>
+          </g>
+          <!-- Africa -->
+          <path d="M 200,130 Q 240,110 280,150 L 320,190 Q 345,240 320,300 L 290,370 Q 260,390 230,360 L 210,290 Q 190,210 200,130 Z" fill="#ebe4d3" stroke="#c9bfa8" stroke-width="1"/>
+          <!-- Saudi peninsula -->
+          <path d="M 330,180 Q 380,170 415,210 L 425,270 Q 405,300 365,290 L 340,250 Q 325,210 330,180 Z" fill="#ebe4d3" stroke="#c9bfa8" stroke-width="1"/>
+          <!-- Iran -->
+          <path d="M 425,160 Q 465,150 495,180 L 505,220 Q 485,235 445,225 L 425,200 Z" fill="#ebe4d3" stroke="#c9bfa8" stroke-width="1"/>
+          <!-- India -->
+          <path d="M 525,210 Q 570,200 595,230 L 612,270 Q 600,320 570,350 L 545,340 Q 515,300 515,260 Z" fill="#d9c8a8" stroke="#8b6f3a" stroke-width="1.6"/>
+          <!-- China -->
+          <path d="M 615,170 Q 690,160 750,190 L 755,240 Q 725,255 665,245 L 615,220 Z" fill="#ebe4d3" stroke="#c9bfa8" stroke-width="1"/>
+
+          <path d="M 285,270 Q 315,260 345,245 Q 385,230 425,235 Q 475,245 525,255"
+                fill="none" stroke="#6b1d1d" stroke-width="2.5" stroke-dasharray="6 3">
+            <animate attributeName="stroke-dashoffset" from="0" to="-18" dur="2s" repeatCount="indefinite"/>
+          </path>
+          <path d="M 415,215 Q 445,225 475,235 Q 505,245 525,255"
+                fill="none" stroke="#b8893a" stroke-width="2.5" stroke-dasharray="6 3">
+            <animate attributeName="stroke-dashoffset" from="0" to="-18" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+          </path>
+
+          <g>
+            <circle cx="325" cy="235" r="6" fill="#6b1d1d"/>
+            <circle cx="325" cy="235" r="12" fill="none" stroke="#6b1d1d" stroke-width="1.2" opacity="0.4">
+              <animate attributeName="r" values="6;20;6" dur="2.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.7;0;0.7" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+          <g>
+            <circle cx="425" cy="225" r="6" fill="#b8893a"/>
+            <circle cx="425" cy="225" r="12" fill="none" stroke="#b8893a" stroke-width="1.2" opacity="0.4">
+              <animate attributeName="r" values="6;20;6" dur="2.5s" repeatCount="indefinite" begin="0.9s"/>
+              <animate attributeName="opacity" values="0.7;0;0.7" dur="2.5s" repeatCount="indefinite" begin="0.9s"/>
+            </circle>
+          </g>
+          <circle cx="545" cy="280" r="4.5" fill="#161513"/>
+          <circle cx="545" cy="280" r="9" fill="none" stroke="#161513" stroke-width="1" opacity="0.5"/>
+
+          <g font-family="JetBrains Mono, monospace" font-size="9" fill="#161513" letter-spacing="0.5">
+            <text x="240" y="210" fill="#6b1d1d" font-weight="700">SUEZ / RED SEA</text>
+            <text x="355" y="200" fill="#b8893a" font-weight="700">STRAIT OF HORMUZ</text>
+            <text x="545" y="298" font-weight="700">MUMBAI</text>
+            <text x="545" y="309" fill="#4a463f">WHERE OIL ARRIVES</text>
+            <text x="240" y="295" fill="#4a463f">AFRICA</text>
+            <text x="365" y="250" fill="#4a463f">SAUDI ARABIA</text>
+            <text x="445" y="195" fill="#4a463f">IRAN</text>
+            <text x="560" y="235" fill="#8b6f3a" font-weight="700">INDIA</text>
+          </g>
+
+          <g>
+            <rect x="20" y="20" width="240" height="62" fill="#161513"/>
+            <rect x="20" y="20" width="4" height="62" fill="#d4a857"/>
+            <text x="36" y="40" fill="#d4a857" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5">SHIPPING TROUBLE LEVEL</text>
+            <text x="36" y="62" fill="#faf7ef" font-family="Fraunces, serif" font-size="22" font-weight="600">7.2 / 10</text>
+            <text x="125" y="62" fill="#d97259" font-family="JetBrains Mono, monospace" font-size="10">▲ +22% THIS MONTH</text>
+          </g>
+          <g>
+            <rect x="560" y="395" width="240" height="62" fill="#faf7ef" stroke="#161513"/>
+            <rect x="560" y="395" width="4" height="62" fill="#6b1d1d"/>
+            <text x="576" y="415" fill="#6b1d1d" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5">INDIA NEEDS OIL FROM ABROAD</text>
+            <text x="576" y="437" fill="#161513" font-family="Fraunces, serif" font-size="22" font-weight="600">~85%</text>
+            <text x="650" y="437" fill="#4a463f" font-family="JetBrains Mono, monospace" font-size="10">OF ALL OIL</text>
+          </g>
+        </svg>
+      </div>
+      <div class="geo-side">
+        <div class="geo-card alert">
+          <div class="geo-card-meta">
+            <span>RED LINE · RED SEA</span>
+            <span class="risk">RISK 8.4</span>
+          </div>
+          <h5>The Suez Shortcut Is Blocked</h5>
+          <p>About 12% of all global trade — and a big chunk of India's oil, electronics and fertilizer — passes through this stretch. With attacks happening here, ships are taking the long way around Africa. That adds 10–14 days to delivery and pushes up shipping costs, which shows up in our shops 2–3 months later.</p>
+        </div>
+        <div class="geo-card alert">
+          <div class="geo-card-meta">
+            <span>WATCH · HORMUZ STRAIT</span>
+            <span class="risk">RISK 7.8</span>
+          </div>
+          <h5>One-Fifth of the World's Oil Squeezes Through Here</h5>
+          <p>If this narrow strip of water between Iran and Oman ever closes (even briefly), oil could shoot to $130–150 a barrel. For India, that would mean petrol crossing ₹130/litre and the government having to make some tough emergency choices.</p>
+        </div>
+        <div class="geo-card warn">
+          <div class="geo-card-meta">
+            <span>STRUCTURAL · TWO BIG EXPOSURES</span>
+            <span class="risk">RISK 6.5</span>
+          </div>
+          <h5>India's Twin Weakness — Oil and Gold</h5>
+          <p>India imports about 85% of its oil, and is the world's second-largest gold buyer. Most of the time only one of these creates trouble. Right now, both are pulling against the rupee at the same time — which is what makes May 2026 different.</p>
+        </div>
+        <div class="geo-card warn">
+          <div class="geo-card-meta">
+            <span>QUIET RISK · ELECTRONICS</span>
+            <span class="risk">RISK 5.4</span>
+          </div>
+          <h5>Phone, Laptop, and Chip Delays</h5>
+          <p>The same Suez problem matters for time-sensitive electronics. A 4–6 week supply lag shows up as phone shortages at year-end, capex deferrals in IT services, and higher prices on imported electronics.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISK ASYMMETRY -->
+<section id="asymmetry">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 10 / WHY ACT EARLY</div>
+        <h3 class="sec-title">Acting now is <em>cheap.</em> Acting late is <em>expensive.</em></h3>
+      </div>
+      <p class="sec-sub">The PM's speech is best understood as cheap insurance. Each step the government can take costs much less if done early, before things get bad — compared to doing the same thing in a panic later.</p>
+    </div>
+    <div class="asym-section">
+      <table class="asym-table">
+        <thead>
+          <tr>
+            <th style="width: 24%;">Possible Action</th>
+            <th style="width: 26%;">If done early (now)</th>
+            <th style="width: 26%;">If forced to do it later</th>
+            <th style="width: 24%;">What this tells us</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="font-family:'Fraunces',serif; font-size:15px; color:var(--ink);">Raise gold import duty</strong><br><span style="color:var(--ink-soft);">From 10% to 15%</span></td>
+            <td><span class="asym-cost green">Gov earns ~₹15,000 cr extra</span><br><span style="color:var(--ink-soft);">A bit of grumbling during wedding season</span></td>
+            <td><span class="asym-cost red">Trade gap blows past 3.5% of GDP</span><br><span style="color:var(--ink-soft);">Forces an emergency interest rate hike</span></td>
+            <td><strong style="color:var(--oxblood);">Acting early is 10× cheaper.</strong><br>Already done on 12 May.</td>
+          </tr>
+          <tr>
+            <td><strong style="font-family:'Fraunces',serif; font-size:15px; color:var(--ink);">Ask citizens to cut back</strong><br><span style="color:var(--ink-soft);">The PM Modi speech itself</span></td>
+            <td><span class="asym-cost green">Zero cost to government</span><br><span style="color:var(--ink-soft);">Some worry that it sounds panicky</span></td>
+            <td><span class="asym-cost red">Fuel rationing — forced cutbacks</span><br><span style="color:var(--ink-soft);">Real political backlash</span></td>
+            <td><strong style="color:var(--oxblood);">A free option.</strong><br>Easiest first step. Launched 10 May.</td>
+          </tr>
+          <tr>
+            <td><strong style="font-family:'Fraunces',serif; font-size:15px; color:var(--ink);">RBI defends the rupee</strong><br><span style="color:var(--ink-soft);">Selling dollars from reserves</span></td>
+            <td><span class="asym-cost">Uses up $5–10B from reserves</span><br><span style="color:var(--ink-soft);">Keeps rupee from falling further</span></td>
+            <td><span class="asym-cost red">Uses up $25–40B in a panic</span><br><span style="color:var(--ink-soft);">Rupee falls to 100+; import-credit stress</span></td>
+            <td><strong style="color:var(--oxblood);">Defending a slow fall is cheaper than fighting a crash.</strong></td>
+          </tr>
+          <tr>
+            <td><strong style="font-family:'Fraunces',serif; font-size:15px; color:var(--ink);">Keep interest rates steady</strong><br><span style="color:var(--ink-soft);">Holding at 6.75%</span></td>
+            <td><span class="asym-cost">No interest rate cuts</span><br><span style="color:var(--ink-soft);">EMIs stay where they are</span></td>
+            <td><span class="asym-cost red">Forced 50 bps emergency hike</span><br><span style="color:var(--ink-soft);">Growth slows; business investments dry up</span></td>
+            <td><strong style="color:var(--oxblood);">Steady is the price of safety.</strong><br>Rate cuts off the table.</td>
+          </tr>
+          <tr>
+            <td><strong style="font-family:'Fraunces',serif; font-size:15px; color:var(--ink);">Cut cooking oil import duty</strong><br><span style="color:var(--ink-soft);">To soften food inflation</span></td>
+            <td><span class="asym-cost">Government loses ~₹8,000 cr</span><br><span style="color:var(--ink-soft);">But food prices stay in check</span></td>
+            <td><span class="asym-cost red">Food inflation crosses 9%</span><br><span style="color:var(--ink-soft);">Political pressure builds rapidly</span></td>
+            <td><strong style="color:var(--oxblood);">Likely to happen soon.</strong><br>Watch for an announcement.</td>
+          </tr>
+          <tr>
+            <td><strong style="font-family:'Fraunces',serif; font-size:15px; color:var(--ink);">Borrow from abroad in dollars</strong><br><span style="color:var(--ink-soft);">Issue NRI bonds, etc.</span></td>
+            <td><span class="asym-cost">Costs ~50 bps in extra interest</span><br><span style="color:var(--ink-soft);">A "just in case" cushion</span></td>
+            <td><span class="asym-cost red">Costs 150 bps+; rating risk</span><br><span style="color:var(--ink-soft);">Markets sense panic</span></td>
+            <td><strong style="color:var(--oxblood);">Last-resort tool.</strong><br>Not active yet.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING MEMO -->
+<section class="thesis-section" id="memo">
+  <div class="container">
+    <div class="thesis-grid">
+      <aside class="thesis-aside">
+        <div class="label">— 11 / THE BOTTOM LINE</div>
+        <h3>What India is <em>actually</em> trying to do.</h3>
+        <div class="author">
+          INDIA MONEY WATCH<br>
+          Public Brief · Plain English Edition<br>
+          13 May 2026, 18:42 IST<br>
+          <strong>OUR CONFIDENCE · MEDIUM-HIGH</strong><br>
+          <span style="color: var(--ink);">FOR: ANYONE WHO READS THE NEWS</span>
+        </div>
+      </aside>
+      <div class="thesis-body">
+        <p>India in May 2026 is not in crisis. But it is acting like a household that has decided to start saving before the rains come. The Prime Minister didn't ask citizens to sacrifice for the rupee directly — he asked them to walk to work, skip a vacation, and pass on a chain. In plain language: <em>conserve dollars now, or pay more for everything later.</em></p>
+
+        <p>The setup will feel familiar to anyone who remembers <strong>1991</strong>, when India almost ran out of dollars. Three of the four ingredients of that crisis are back in milder form — expensive oil, a widening import bill, and a falling rupee. The fourth — empty reserves — is not. India still has <strong>$602 billion</strong> in savings, about nine months of imports. That is why we are in a "defensive phase," not a real crisis.</p>
+
+        <div class="thesis-horizons">
+          <div class="horizon">
+            <div class="horizon-k">→ NEXT 6 MONTHS</div>
+            <div class="horizon-title">Tighten the Belt</div>
+            <div class="horizon-text">Gold duty stays at 15%. Petrol and food prices keep rising slowly. Rupee drifts toward 97–98. RBI sells dollars now and then to slow the fall. Inflation stays in the 6.4–7.2% range. No interest rate cuts.</div>
+          </div>
+          <div class="horizon">
+            <div class="horizon-k">→ NEXT 12 MONTHS</div>
+            <div class="horizon-title">A Real Choice</div>
+            <div class="horizon-text">If oil falls below $90, this all eases. Gold duty comes back down, rupee strengthens, rate cuts return. If oil stays above $100, expect more government action — possibly new import restrictions or fresh borrowing from abroad in dollars.</div>
+          </div>
+          <div class="horizon">
+            <div class="horizon-k">→ NEXT 24 MONTHS</div>
+            <div class="horizon-title">The Worst Case</div>
+            <div class="horizon-text">A war or shutdown in the Middle East that takes oil to $140. Probability is low (under 8%), but if it happens, India would have to do emergency import controls, rates would shoot up, and the rupee could cross 100. Watch this corner carefully.</div>
+          </div>
+        </div>
+
+        <p>The most important thing the speech tells us is <strong>not</strong> that India is in trouble. It is that the government is acting <em>before</em> the data forces it to. That's the opposite of what India did in 1991, and it's why this is a defensive phase rather than a defensive failure. When a government changes citizen behavior <em>ahead of</em> the bad numbers, it's telling you what it expects the bad numbers to look like in three months.</p>
+
+        <p>Our best guess (50%): the current measures hold the line and the rupee slowly settles around 97. There's a 25% chance things actually get better in the next few months (the bullish case). There's a 20% chance things get worse before they get better, and a 5% chance of a real crisis. Those are the four roads. The speech was the government making sure we don't end up on the worst one.</p>
+
+        <p>Three things to watch in the next 60 days: <strong>(1)</strong> the next inflation print in June — does it cross 6.8%? <strong>(2)</strong> India's foreign currency reserves by end-June — are they still above $590 billion? <strong>(3)</strong> any announcement about cooking oil import duty being cut. The first two tell you whether the defense is working. The third tells you whether the government feels it has to throw a lifeline to households — a sign the political pressure is starting to bite.</p>
+
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-soft); border-top: 1px solid var(--rule); padding-top: 22px; margin-top: 36px; letter-spacing: 0.05em;">
+          — END OF BRIEF — <br>
+          <span style="color: var(--oxblood);">SHARE WITH:</span> ANYONE TRYING TO UNDERSTAND THE NEWS HEADLINES THIS WEEK.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div>
+        <div class="col-title">INDIA MONEY WATCH</div>
+        Public Brief · May 2026<br>
+        Written for citizens, not analysts.<br>
+        Not investment advice.
+      </div>
+      <div>
+        <div class="col-title">WHERE NUMBERS COME FROM</div>
+        Reserve Bank of India · MoSPI<br>
+        IMF · BIS · EIA · World Bank<br>
+        All figures as of 13 May 2026
+      </div>
+      <div>
+        <div class="col-title">HOW TO READ THIS</div>
+        Click any card or tab to expand.<br>
+        Hover any chart for details.<br>
+        Best read top to bottom.
+      </div>
+      <div>
+        <div class="col-title">FEEDBACK</div>
+        Have a friend who'd find this useful?<br>
+        Share the link.<br>
+        Filed: 13 May 2026 · 18:42 IST
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 INDIA MONEY WATCH · FIGURES ARE INDICATIVE · ALWAYS DO YOUR OWN RESEARCH</span>
+      <span>BUILD · MONEY-WATCH-v1.3.0 · 13 MAY 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   DATA — Plain English Edition · USD/INR = 95.61
+   ============================================================ */
+const DATA = {
+  readings: [
+    { k: "USD/INR", v: "95.61", u: "", d: "RECORD LOW · 13 MAY", dir: "up" },
+    { k: "BRENT OIL", v: "$104", u: "/bbl", d: "+28% YEAR", dir: "up" },
+    { k: "INFLATION", v: "6.4", u: "%", d: "ABOVE TARGET", dir: "up" },
+    { k: "FX RESERVES", v: "$602", u: "B", d: "−$3.2B THIS WEEK", dir: "up" },
+    { k: "TRADE GAP", v: "$31", u: "B", d: "12-MONTH HIGH", dir: "up" },
+    { k: "INTEREST RATE", v: "6.75", u: "%", d: "ON HOLD", dir: "up" }
+  ],
+  events: [
+    { date: "10 MAY 2026", title: "PM Modi's Citizens' Advisory", level: "critical",
+      summary: "PM asks Indians to skip gold, use public transport, eat less cooking oil, avoid foreign trips.",
+      why: "Each of those four things directly involves dollars leaving India. It's no accident he targeted exactly these.",
+      signal: "The government is worried enough about dollars to talk to the public — not just to bureaucrats.",
+      effect: "Bond markets and currency dealers immediately started pricing in import controls." },
+    { date: "12 MAY 2026", title: "Gold Duty Raised to 15%", level: "critical",
+      summary: "Government raises import tax on gold from 10% to 15%. Notification issued by CBIC.",
+      why: "Gold is India's second-biggest import after oil. Higher tax = less gold bought = fewer dollars sent abroad.",
+      signal: "Confirms the speech wasn't just talk. It was a preview of policy.",
+      effect: "Gold became 12% more expensive in shops overnight. Smuggling networks activated." },
+    { date: "13 MAY 2026", title: "Rupee Crashes Past 95", level: "critical",
+      summary: "USD/INR hits 95.61 — a record low. The rupee has weakened over 7% in just three months.",
+      why: "When the rupee falls, every import (oil, food, electronics, medicines) gets more expensive in rupees.",
+      signal: "Markets are voting that India's dollar position is more stressed than the official numbers show.",
+      effect: "RBI is selling dollars to slow the fall. Bond yields shot above 7.35%." },
+    { date: "08 MAY 2026", title: "Oil Stays at $104", level: "warning",
+      summary: "Brent crude stays elevated due to Middle East tensions and tight supply. Up 28% in 12 months.",
+      why: "Every $10 rise in oil costs India about $15 billion more per year.",
+      signal: "This is the underlying cause of everything else happening.",
+      effect: "Rupee weakness sped up. Long-term bond yields rose 18 basis points." },
+    { date: "25 APR 2026", title: "Red Sea Shipping Disrupted", level: "warning",
+      summary: "Houthi attacks resume; large container ships re-route around Africa instead of using Suez.",
+      why: "Shipping costs rose 22% in one month. Slower deliveries plus higher costs will show up in shop prices in 3 months.",
+      signal: "Supply-side inflation is now stacking on top of demand-side problems.",
+      effect: "India's trade deficit ballooned to $31 billion in just one month." },
+    { date: "13 MAY 2026", title: "Inflation Prints 6.4%", level: "warning",
+      summary: "Consumer prices are rising faster than RBI's 4% target for the seventh month in a row.",
+      why: "Fuel and food together drive 60% of this number. The cause is exactly what the speech was about.",
+      signal: "Forget rate cuts. They're off the table until inflation cools.",
+      effect: "Bond yields stay sticky above 7.30%. EMIs won't fall anytime soon." }
+  ],
+  policies: [
+    { quote: "Use public transport",
+      arrow: "WHICH MEANS",
+      real: "Drive less, so India needs to import less petrol and diesel. Each litre saved is dollars saved.",
+      signals: ["Slow down oil imports", "Use less fuel overall", "Save foreign currency"],
+      fx: "India spends about $11 billion every month just on crude oil." },
+    { quote: "Avoid buying gold",
+      arrow: "WHICH MEANS",
+      real: "Every gold chain, coin or bar is paid for in dollars India sends abroad. Postpone it, save dollars.",
+      signals: ["Keep more dollars at home", "Slow the trade deficit", "Protect foreign reserves"],
+      fx: "Gold is India's #2 import — ~$60 billion per year." },
+    { quote: "Cut cooking oil use",
+      arrow: "WHICH MEANS",
+      real: "India imports most of its palm and sunflower oil. Less consumption = less imports = lower food inflation.",
+      signals: ["Save ~$20bn/year on edible oils", "Reduce dependency on Malaysia/Indonesia", "Cool food prices"],
+      fx: "We import 60% of our edible oil — biggest food import item." },
+    { quote: "Skip foreign travel",
+      arrow: "WHICH MEANS",
+      real: "Indians spend dollars when they travel abroad. That's a direct outflow of foreign currency.",
+      signals: ["Save ~$18bn/year tourism outflow", "Improve services balance", "Cool discretionary $-spending"],
+      fx: "Indians spent ~$33B abroad in FY24 — among the fastest-rising leak categories." },
+    { quote: "Work from home when possible",
+      arrow: "WHICH MEANS",
+      real: "Fewer commutes mean less petrol burned across the country — a quiet way to cut fuel imports.",
+      signals: ["Reduce daily commuter fuel use", "Cut refined product imports", "Soft demand management"],
+      fx: "WFH at scale can swing 3–5% of urban gasoline demand." }
+  ],
+  analogs: [
+    { id: "1991", name: "The 1991 Crisis", period: "INDIA · 1990–91", similarity: 78,
+      blurb: "India almost ran out of dollars and had to ship gold to London as a loan guarantee. Sparked the 1991 reforms.",
+      triggers: ["Iraq invaded Kuwait — oil prices spiked", "India had only 2 weeks of import money left", "Heavy import bills", "Political chaos at home"],
+      responses: ["Pledged gold to Bank of England", "Sharp restrictions on imports", "Devalued the rupee in two steps", "Opened up the economy (the 1991 reforms)"],
+      outcomes: { Inflation: "Hit 13.9%", Currency: "Devalued 18%", Fuel: "Prices surged", Growth: "Slumped to 1.1%" },
+      story: "India was 3 weeks away from being unable to pay for oil. The crisis forced the country to abandon decades of closed-economy policy and open up to the world — the reforms that made today's India possible.",
+      tags: ["FX crisis", "Import dependency", "Oil shock"] },
+    { id: "2013", name: "The Gold Defense", period: "INDIA · 2013", similarity: 84,
+      blurb: "When the rupee was crashing, India hiked gold duties and made it harder to import — exactly today's playbook.",
+      triggers: ["US Fed surprise tightened — money fled India", "Trade gap blew out to 4.8% of GDP", "Gold imports at record high", "Rupee fell 17% in months"],
+      responses: ["Gold import duty raised 4% → 10%", "New rule: importers had to export 20% back", "Banks banned from financing gold buys", "RBI offered cheap dollars to NRIs to attract deposits"],
+      outcomes: { Inflation: "Hit 9.5%", Currency: "Stabilized late 2013", GoldDemand: "Fell 27%", Smuggling: "Rose sharply" },
+      story: "This is the closest analog to today. The government did exactly what is happening now — raised gold duty, asked citizens to cut back, defended the rupee. Within 6 months, the rupee stabilized. Smuggling networks got rich.",
+      tags: ["Gold control", "FX defense", "Import cuts"] },
+    { id: "1973", name: "The OPEC Oil Shock", period: "WORLD · 1973–74", similarity: 62,
+      blurb: "Arab oil exporters cut supply over the Yom Kippur war. Oil prices quadrupled. The whole world had to learn to use less fuel.",
+      triggers: ["Yom Kippur war led to oil embargo", "OPEC slashed supply by 25%", "Oil prices went from $3 to $12", "Western countries unprepared"],
+      responses: ["Speed limits and rationing in US/Europe", "Government conservation campaigns", "Strategic Petroleum Reserve was created", "Public transport got a big push"],
+      outcomes: { Inflation: "12.3% in the US", Recession: "Hit 1974–75", Transport: "Costs jumped 34%", Behavior: "Permanently changed" },
+      story: "The world had never been told to conserve fuel before. The shock forced lasting behavior changes — smaller cars, more efficient appliances, strategic reserves. India's 2026 advisory echoes this playbook.",
+      tags: ["Oil shock", "Imported inflation", "Conservation"] }
+  ],
+  transmission: {
+    oil: {
+      chains: [
+        [{ t: "Oil prices rise", d: "Middle East tensions push Brent above $100/barrel and keep it there." }],
+        [{ t: "India's import bill jumps", d: "Every $10 increase in oil = $15 billion extra outflow per year." },
+         { t: "Demand for dollars rises", d: "Oil companies rush to buy dollars to pay foreign suppliers." }],
+        [{ t: "Rupee weakens", d: "More demand for dollars than supply = rupee falls. We just saw it cross 95." },
+         { t: "Petrol and diesel get pricier", d: "Petrol pumps eventually pass the cost to consumers — pump prices rise." }],
+        [{ t: "Food and transport costs rise", d: "Pulses, vegetables, edible oil — all get more expensive due to higher logistics." },
+         { t: "Your salary buys less", d: "Discretionary spending falls. Small businesses see margins shrink. Savings drop." }]
+      ],
+      affected: ["Urban Middle Class", "Truckers & Auto Drivers", "Farmers", "Small Businesses", "Salaried Workers"]
+    },
+    gold: {
+      chains: [
+        [{ t: "Gold duty raised to 15%", d: "Direct tax on India's #2 import item after oil." }],
+        [{ t: "Legal gold imports fall", d: "Jewelers reduce stock; landed price up about 12%." },
+         { t: "Gold gets pricier in shops", d: "The gap between Indian and international gold prices widens." }],
+        [{ t: "Smuggling jumps", d: "Just like 2013 — smugglers captured 25–30% of demand last time." },
+         { t: "Jewelry sales drop", d: "Wedding-season volumes fall. Smaller jewelers feel the squeeze." }],
+        [{ t: "Tax collection underwhelms", d: "Government's customs revenue gain is partly offset by black-market activity." },
+         { t: "Household wealth dampens", d: "Indians treat gold as savings. When it gets pricier to buy, household sentiment cools." }]
+      ],
+      affected: ["Jewelry Shops", "Gold Traders", "Wedding-season Buyers", "Customs Department", "Small Retailers"]
+    },
+    inr: {
+      chains: [
+        [{ t: "Rupee weakens past 95", d: "Capital flight + structural import deficit = rupee breaks through psychological levels." }],
+        [{ t: "Every import costs more", d: "1% rupee depreciation adds about 10–15 basis points to inflation over 2 quarters." },
+         { t: "Foreign loan repayments get harder", d: "Indian companies that borrowed in dollars now owe more in rupees." }],
+        [{ t: "RBI sells dollars selectively", d: "About $3 billion per month drawn from reserves to slow the fall." },
+         { t: "Hedging gets expensive", d: "Importers find it costlier to lock in future dollar rates." }],
+        [{ t: "Bond yields rise", d: "Foreign investors demand higher returns to hold Indian debt. 10Y stays above 7.3%." },
+         { t: "Rate cuts get postponed", d: "RBI can't cut rates while rupee is under pressure. EMIs stay high." }]
+      ],
+      affected: ["Importing Companies", "Bond Markets", "Foreign Loan Holders", "Banks", "Anyone Paying EMI"]
+    }
+  },
+  personas: [
+    { name: "Urban Middle Class", sub: "Salaried · ₹80k–₹150k/mo · Big Cities",
+      metrics: { fuel: "+₹2,400/mo", food: "+₹1,800/mo", emi: "Flat", savings: "−18%" },
+      narrative: "The gap between income and aspiration tightens. A planned foreign trip becomes a domestic one. The SIP stays, but the eating-out, shopping, and 'extra' spending gets cut first. Anyone planning to buy gold for a wedding is rethinking.",
+      behaviors: ["Postpones buying a new car or bike", "Takes metro or bus instead of driving on weekends", "Skips non-essential gold buying", "Switches to cheaper cooking oil brands"] },
+    { name: "Lower Income Families", sub: "Daily wage or informal · ≤₹25k/mo",
+      metrics: { fuel: "+₹600/mo", food: "+₹1,200/mo", emi: "N/A", savings: "−42%" },
+      narrative: "The squeeze is immediate and there's nowhere to absorb it. Food inflation eats up the buffer first. Bus fares pinch what's left. There's no option to substitute — only to consume less. Some pull children's tuition spending. Some pawn small gold pieces.",
+      behaviors: ["Cuts back on dal, milk, and protein", "Reduces children's tuition or coaching", "Pawns small gold pieces", "Walks instead of taking the bus where possible"] },
+    { name: "Farmers", sub: "Small and marginal land-holders",
+      metrics: { fuel: "+₹3,800/mo", food: "Mixed", emi: "Strain", savings: "Eroding" },
+      narrative: "Diesel for water pumps and tractors is the killer. The minimum support price helps for some crops, but fertilizer (made from natural gas) and transportation costs are rising too. Farmers with non-MSP crops feel it worst.",
+      behaviors: ["Runs water pumps for fewer hours", "Postpones tractor or equipment upgrades", "Borrows more from local cooperatives", "Holds onto gold as core savings"] },
+    { name: "Truckers & Auto/Cab Drivers", sub: "Transport workers",
+      metrics: { fuel: "+₹6,200/mo", food: "+₹1,400/mo", emi: "Strain", savings: "−35%" },
+      narrative: "This group gets hit first and hardest. Diesel prices pass through right away at the pump, but freight rates from clients catch up only 4–8 weeks later. The gap eats into their margin. Some older trucks get parked.",
+      behaviors: ["Tries to negotiate fuel surcharge with clients", "Parks older, less efficient vehicles", "EMIs slipping; risk of bad loans rising", "Switches to night driving for fuel efficiency"] },
+    { name: "Jewelry Shop Owners", sub: "Retail and wholesale gold traders",
+      metrics: { fuel: "Mild", food: "Mild", emi: "Inventory burn", savings: "Margins thin" },
+      narrative: "Double whammy — duty hike plus rising gold price means showroom prices jumped 12–15% in days. Wedding-season footfall is down. Big chains adjust fast; small shops watch grey-market competitors steal customers.",
+      behaviors: ["Pushes lightweight, lower-karat designs", "Encourages exchange-of-old-gold deals", "Holds less inventory", "Lobbies for a rollback of the duty hike"] },
+    { name: "IT/Software Professionals", sub: "Salaried · WFH-capable",
+      metrics: { fuel: "−₹1,200/mo (WFH)", food: "+₹1,600/mo", emi: "Flat", savings: "−6%" },
+      narrative: "Least affected for now. Working from home cuts commute costs. If they work for foreign clients, the weak rupee actually increases their take-home (in rupees). But they're cutting back on foreign trips and big-ticket electronics.",
+      behaviors: ["Adopts WFH 3–4 days a week", "Postpones the foreign vacation", "Keeps gold and mutual fund SIPs going", "Switches to value brands at the grocery store"] }
+  ],
+  scenarios: [
+    { name: "Most Likely", probability: 50, timeline: "6–12 MONTHS", confidence: 72,
+      explainer: "The current measures work. India tightens its belt, the rupee slowly settles, and inflation stays elevated but doesn't run away. Life gets harder but not painful.",
+      vars: { Inflation: "6.0–6.8%", "USD/INR": "96 → 97", Petrol: "+4–7%", Diesel: "+5–9%", Gold: "+8–12%", "Interest Rate": "Stays at 6.75%" },
+      social: "Public transport ridership shoots up in cities. Households visibly stressed but no political flashpoint. Discretionary spending falls.",
+      policy: "Gold duty stays in place. RBI defends the rupee on bad days. Possibly cuts duty on cooking oil to soften food prices.",
+      radar: [3, 3, 3, 2, 3] },
+    { name: "Things Improve", probability: 25, timeline: "3–6 MONTHS", confidence: 64,
+      explainer: "Oil prices ease, geopolitical tensions cool, and the rupee bounces back. The government rolls back some duties. Inflation comes down and rate cuts return to the table.",
+      vars: { Inflation: "Cools to 5.2%", "USD/INR": "Returns to 91–92", Petrol: "Stable", Diesel: "−2%", Gold: "Duty partly rolled back", "Interest Rate": "25 bps cut early 2027" },
+      social: "Consumer confidence picks up. People resume discretionary spending. Foreign travel restarts.",
+      policy: "Gold duty rolled back. RBI stops defending. Sets up a rate cut path. Sovereign borrowing not needed.",
+      radar: [2, 2, 2, 1, 2] },
+    { name: "Things Get Worse", probability: 20, timeline: "6–18 MONTHS", confidence: 70,
+      explainer: "Oil stays sticky above $100, the rupee keeps drifting weaker, and inflation refuses to come down. The government adds more import restrictions and possibly hikes interest rates.",
+      vars: { Inflation: "7.0–7.8%", "USD/INR": "98 → 100", Petrol: "+12%", Diesel: "+14%", Gold: "+18–25%", "Interest Rate": "25–50 bps hike on table" },
+      social: "Two-wheeler and car sales slow. Small business defaults rise. Real wage growth stalls.",
+      policy: "Second round of import duties. Government opens special borrowing facilities for foreign currency.",
+      radar: [4, 4, 4, 4, 4] },
+    { name: "Crisis", probability: 5, timeline: "12–24 MONTHS", confidence: 55,
+      explainer: "A major Middle East event — war, shipping closure — sends oil to $140+. India's reserves drop fast. Emergency import controls, sharp interest rate hikes, and possibly help from the IMF.",
+      vars: { Inflation: "9–11%", "USD/INR": "102–107", Petrol: "+20%+", Diesel: "+25%+", Gold: "Strict quotas / restrictions", "Interest Rate": "Emergency hikes" },
+      social: "Visible economic distress. Political pressure on government becomes severe. Some demonstrations possible.",
+      policy: "Emergency import controls. Approaches IMF/multilaterals for support. Rating agencies put India on watch.",
+      radar: [5, 5, 5, 5, 5] }
+  ],
+  heatmap: {
+    sectors: ["Oil/Petrol Pumps", "Airlines", "Jewelry/Gold", "Cars & 2-Wheelers", "Daily Use Goods", "Trucking/Logistics", "IT Services", "Banks & NBFCs", "Real Estate", "Cooking Oil"],
+    data: [
+      [8, 8, 7, 7, 6, 6, 5, 5, 4, 4, 3, 3],
+      [7, 7, 8, 8, 8, 7, 7, 6, 6, 5, 5, 4],
+      [9, 9, 8, 7, 6, 6, 5, 5, 4, 4, 3, 3],
+      [6, 7, 7, 8, 8, 7, 7, 6, 5, 5, 4, 4],
+      [5, 6, 6, 7, 7, 7, 6, 6, 5, 5, 4, 4],
+      [8, 8, 8, 7, 7, 6, 6, 5, 5, 4, 4, 3],
+      [3, 3, 3, 4, 4, 4, 3, 3, 3, 2, 2, 2],
+      [5, 6, 6, 6, 7, 7, 6, 6, 5, 5, 4, 4],
+      [4, 4, 5, 5, 6, 6, 6, 5, 5, 4, 4, 3],
+      [9, 8, 8, 7, 6, 5, 5, 4, 4, 3, 3, 3]
+    ]
+  }
+};
+
+/* ============================================================
+   TICKER
+   ============================================================ */
+function buildTicker() {
+  const items = [
+    ["USD/INR", "95.61", "RECORD LOW", "up"],
+    ["BRENT", "$104.10", "+1.8%", "up"],
+    ["GOLD/OZ", "$2,485", "+1.2%", "up"],
+    ["NIFTY 50", "23,640", "-0.9%", "dn"],
+    ["10Y G-SEC", "7.36%", "+8bp", "up"],
+    ["FX RESERVES", "$602B", "-3.2B WoW", "dn"],
+    ["CPI YoY", "6.4%", "ABOVE TARGET", "up"],
+    ["REPO RATE", "6.75%", "ON HOLD", ""],
+    ["GOLD DUTY", "15%", "RAISED 12 MAY", "up"],
+    ["TRADE DEFICIT", "$31B", "12M HIGH", "up"],
+    ["SHIPPING IDX", "145", "+22% MoM", "up"],
+    ["BANK NIFTY", "50,820", "-1.1%", "dn"]
+  ];
+  const wrap = document.getElementById('ticker');
+  const html = items.map(([k,v,c,dir]) => `
+    <span class="ticker-item">
+      <span class="ticker-label">${k}</span>
+      <span class="ticker-val">${v}</span>
+      <span class="ticker-chg-${dir}">${c}</span>
+    </span>`).join('');
+  wrap.innerHTML = html + html;
+}
+
+function buildReadings() {
+  const grid = document.getElementById('readingsGrid');
+  grid.innerHTML = DATA.readings.map(r => `
+    <div class="reading-cell">
+      <div class="reading-k">${r.k}</div>
+      <div class="reading-v">${r.v}<span class="unit">${r.u}</span></div>
+      <div class="reading-d ${r.dir === 'up' ? '' : 'dn'}">${r.dir === 'up' ? '▲' : '▼'} ${r.d}</div>
+    </div>
+  `).join('');
+}
+
+function animateStress() {
+  const target = 78;
+  const el = document.getElementById('stressNum');
+  let cur = 0;
+  const step = () => {
+    cur += 1.6;
+    if (cur >= target) { el.textContent = target; return; }
+    el.textContent = Math.round(cur);
+    requestAnimationFrame(step);
+  };
+  step();
+}
+
+function buildTimeline() {
+  const track = document.getElementById('timelineTrack');
+  track.innerHTML = DATA.events.map((e, i) => `
+    <div class="tl-event ${e.level}" data-i="${i}">
+      <div class="tl-date">${e.date}</div>
+      <div class="tl-title">${e.title}</div>
+      <div class="tl-summary">${e.summary}</div>
+      <div class="tl-expand-cue">↓ TAP TO EXPAND</div>
+      <div class="tl-detail">
+        <div class="tl-detail-row"><strong>Why it matters</strong>${e.why}</div>
+        <div class="tl-detail-row"><strong>What it tells us</strong>${e.signal}</div>
+        <div class="tl-detail-row"><strong>What changed</strong>${e.effect}</div>
+      </div>
+    </div>
+  `).join('');
+  track.querySelectorAll('.tl-event').forEach(el => {
+    el.addEventListener('click', () => el.classList.toggle('open'));
+  });
+}
+
+function buildPolicy() {
+  const grid = document.getElementById('policyGrid');
+  grid.innerHTML = DATA.policies.map((p, i) => `
+    <div class="policy-card">
+      <div class="policy-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="policy-quote">${p.quote}</div>
+      <div class="policy-arrow">↓ ${p.arrow}</div>
+      <div class="policy-real">${p.real}</div>
+      <ul class="policy-fx" style="list-style:none; padding:10px 0 0 0; border-top:1px dashed var(--rule); margin-top:10px;">
+        <li style="margin-bottom: 4px;"><strong>NUMBERS:</strong> ${p.fx}</li>
+      </ul>
+    </div>
+  `).join('');
+}
+
+function buildStressGrid() {
+  const grid = document.getElementById('stressGrid');
+  const items = [
+    { label: "FX Reserves", val: "$602", unit: "B", delta: "−$3.2B this week", dir: "up", band: "ok", ctx: "<strong>About 9 months of imports.</strong> A thick safety cushion." },
+    { label: "Brent Crude", val: "$104", unit: "/bbl", delta: "+28% in 12 months", dir: "up", band: "alert", ctx: "<strong>The main reason for everything.</strong> India imports 85%." },
+    { label: "USD/INR", val: "95.61", unit: "", delta: "Record low — 13 May", dir: "up", band: "alert", ctx: "<strong>First time ever above 95.</strong> Every import gets pricier." },
+    { label: "Trade Deficit", val: "$31", unit: "B/mo", delta: "12-month high", dir: "up", band: "alert", ctx: "<strong>India buys more than it sells.</strong> Gap is widening fast." },
+    { label: "Inflation", val: "6.4", unit: "%", delta: "Above 4% target", dir: "up", band: "warn", ctx: "<strong>Above RBI's comfort zone.</strong> Food and fuel driving it." },
+    { label: "10Y Gov Bond", val: "7.36", unit: "%", delta: "+8 bps today", dir: "up", band: "warn", ctx: "<strong>Borrowing costs rising.</strong> EMIs likely to stay sticky." }
+  ];
+  grid.innerHTML = items.map(s => `
+    <div class="stat-card ${s.band}">
+      <div class="stat-label">${s.label}</div>
+      <div class="stat-val">${s.val}<span class="unit">${s.unit}</span></div>
+      <div class="stat-delta ${s.dir}">▲ ${s.delta}</div>
+      <div class="stat-context">${s.ctx}</div>
+    </div>
+  `).join('');
+}
+
+function buildHeatmap() {
+  const grid = document.getElementById('heatmapGrid');
+  const months = ['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
+  const colorFor = v => {
+    if (v <= 2) return { bg: '#cde0c0', fg: '#2d2a26' };
+    if (v <= 4) return { bg: '#e8d9a8', fg: '#2d2a26' };
+    if (v <= 6) return { bg: '#e8b97a', fg: '#2d2a26' };
+    if (v <= 8) return { bg: '#c97354', fg: '#faf7ef' };
+    return { bg: '#8b2a2a', fg: '#faf7ef' };
+  };
+  let html = '<div class="heat-row-label"></div>';
+  months.forEach(m => html += `<div class="heat-header">${m}</div>`);
+  DATA.heatmap.sectors.forEach((sector, si) => {
+    html += `<div class="heat-row-label">${sector}</div>`;
+    DATA.heatmap.data[si].forEach(v => {
+      const c = colorFor(v);
+      html += `<div class="heat-cell" style="background:${c.bg};color:${c.fg};" title="${sector} · ${v}/10">${v}</div>`;
+    });
+  });
+  grid.innerHTML = html;
+}
+
+/* CHARTS */
+Chart.defaults.font.family = "'JetBrains Mono', monospace";
+Chart.defaults.color = '#4a463f';
+Chart.defaults.borderColor = '#d9d0b9';
+
+function buildForexChart() {
+  const ctx = document.getElementById('forexChart').getContext('2d');
+  const labels = ['M-12','M-11','M-10','M-9','M-8','M-7','M-6','M-5','M-4','M-3','M-2','M-1','NOW'];
+  // INR depreciation: 89.2 (May 2025 baseline) to 95.61 → index from 100 to ~107.2
+  const inr = [100, 100.3, 100.6, 101.2, 101.7, 102.2, 102.8, 103.4, 104.6, 105.4, 106.2, 106.7, 107.2];
+  const brent = [100, 101, 104, 108, 112, 115, 118, 121, 122, 124, 126, 127, 128];
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        { label: 'USD/INR (rupee weakening = line going up)', data: inr, borderColor: '#6b1d1d', backgroundColor: 'rgba(107,29,29,0.08)', borderWidth: 2.2, tension: 0.32, fill: true, pointRadius: 3, pointBackgroundColor: '#6b1d1d' },
+        { label: 'Brent Crude Oil (price rising)', data: brent, borderColor: '#b8893a', backgroundColor: 'rgba(184,137,58,0.06)', borderWidth: 2.2, tension: 0.32, fill: true, pointRadius: 3, pointBackgroundColor: '#b8893a' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 }, padding: 14 } },
+        tooltip: { backgroundColor: '#161513', borderColor: '#b8893a', borderWidth: 1 }
+      },
+      scales: {
+        x: { grid: { display: false } },
+        y: { grid: { color: '#ebe4d3' }, ticks: { font: { size: 10 } } }
+      }
+    }
+  });
+}
+
+function buildDeficitChart() {
+  const ctx = document.getElementById('deficitChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Crude Oil', 'Gold', 'Electronics', 'Cooking Oil', 'Machinery', 'Other'],
+      datasets: [{
+        data: [13.2, 5.7, 4.1, 2.8, 2.6, 2.6],
+        backgroundColor: ['#6b1d1d', '#b8893a', '#1e544f', '#a8321f', '#4a463f', '#c9bfa8'],
+        borderColor: '#faf7ef', borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      cutout: '58%',
+      plugins: {
+        legend: { position: 'right', labels: { boxWidth: 10, font: { size: 11 }, padding: 10 } },
+        tooltip: { backgroundColor: '#161513', callbacks: { label: c => `${c.label}: $${c.parsed}B` } }
+      }
+    }
+  });
+}
+
+/* ANALOGS */
+let currentAnalog = '2013';
+function buildAnalogs() {
+  const list = document.getElementById('analogList');
+  list.innerHTML = DATA.analogs.map(a => `
+    <div class="analog-card ${a.id === currentAnalog ? 'active' : ''}" data-id="${a.id}">
+      <div class="analog-head">
+        <div class="analog-name">${a.name}</div>
+        <div class="analog-period">${a.period}</div>
+      </div>
+      <div class="analog-blurb">${a.blurb}</div>
+      <div class="analog-sim">
+        <span class="sim-label">SIMILARITY TO TODAY</span>
+        <div class="sim-bar"><div class="sim-fill" style="width:${a.similarity}%;"></div></div>
+        <span class="sim-num">${a.similarity}%</span>
+      </div>
+      <div class="analog-tags">
+        ${a.tags.map(t => `<span class="analog-tag">${t}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+  list.querySelectorAll('.analog-card').forEach(el => {
+    el.addEventListener('click', () => {
+      currentAnalog = el.dataset.id;
+      buildAnalogs();
+      renderAnalogDetail();
+    });
+  });
+  renderAnalogDetail();
+}
+function renderAnalogDetail() {
+  const a = DATA.analogs.find(x => x.id === currentAnalog);
+  const det = document.getElementById('analogDetail');
+  det.innerHTML = `
+    <h4>${a.name}</h4>
+    <div class="meta">${a.period} · MATCHES TODAY ${a.similarity}%</div>
+    <div class="story">${a.story}</div>
+    <h5>What caused it</h5>
+    <ul>${a.triggers.map(t => `<li>${t}</li>`).join('')}</ul>
+    <h5>What the government did</h5>
+    <ul>${a.responses.map(t => `<li>${t}</li>`).join('')}</ul>
+    <h5>What happened</h5>
+    <div class="analog-outcome-grid">
+      ${Object.entries(a.outcomes).map(([k,v]) => `
+        <div class="outcome-cell"><div class="k">${k}</div><div class="v">${v}</div></div>
+      `).join('')}
+    </div>
+  `;
+}
+
+/* TRANSMISSION */
+let currentChain = 'oil';
+function buildTransmission() {
+  const data = DATA.transmission[currentChain];
+  const flow = document.getElementById('txFlow');
+  const labels = ['THE TRIGGER', 'WHAT HAPPENS FIRST', 'WHAT HAPPENS NEXT', 'WHERE IT ENDS UP'];
+  flow.innerHTML = data.chains.map((col, i) => `
+    <div class="tx-col">
+      <h6><span>${labels[i]}</span><span class="order-num">${i+1}</span></h6>
+      ${col.map((n, j) => `
+        <div class="tx-node" data-col="${i}" data-row="${j}">
+          <div class="tx-node-title">${n.t}</div>
+          <div class="tx-node-desc">${n.d}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+  const groups = document.getElementById('txGroups');
+  groups.innerHTML = data.affected.map(g => `<span class="tx-group">${g}</span>`).join('');
+
+  flow.querySelectorAll('.tx-node').forEach(node => {
+    node.addEventListener('mouseenter', () => {
+      flow.querySelectorAll('.tx-node').forEach(n => n.classList.remove('lit'));
+      const col = +node.dataset.col;
+      flow.querySelectorAll('.tx-node').forEach(n => {
+        if (+n.dataset.col <= col) n.classList.add('lit');
+      });
+    });
+    node.addEventListener('mouseleave', () => {
+      flow.querySelectorAll('.tx-node').forEach(n => n.classList.remove('lit'));
+    });
+  });
+}
+document.addEventListener('click', e => {
+  if (e.target.matches('.tx-toggle button')) {
+    document.querySelectorAll('.tx-toggle button').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentChain = e.target.dataset.chain;
+    buildTransmission();
+  }
+});
+
+/* PERSONAS */
+let currentPersona = 0;
+function buildPersonas() {
+  const list = document.getElementById('personaList');
+  list.innerHTML = DATA.personas.map((p, i) => `
+    <div class="persona ${i === currentPersona ? 'active' : ''}" data-i="${i}">
+      <div class="persona-name">${p.name}</div>
+      <div class="persona-sub">${p.sub}</div>
+    </div>
+  `).join('');
+  list.querySelectorAll('.persona').forEach(el => {
+    el.addEventListener('click', () => {
+      currentPersona = +el.dataset.i;
+      buildPersonas();
+      renderPersonaDetail();
+    });
+  });
+  renderPersonaDetail();
+}
+function renderPersonaDetail() {
+  const p = DATA.personas[currentPersona];
+  const d = document.getElementById('simDisplay');
+  d.innerHTML = `
+    <div class="sim-header">
+      <h4>${p.name}</h4>
+      <div class="meta">${p.sub}</div>
+    </div>
+    <div class="sim-impact-grid">
+      <div class="impact-cell">
+        <div class="impact-k">Extra Fuel Cost</div>
+        <div class="impact-v red">${p.metrics.fuel}</div>
+      </div>
+      <div class="impact-cell">
+        <div class="impact-k">Extra Food Cost</div>
+        <div class="impact-v amber">${p.metrics.food}</div>
+      </div>
+      <div class="impact-cell">
+        <div class="impact-k">EMI Impact</div>
+        <div class="impact-v">${p.metrics.emi}</div>
+      </div>
+      <div class="impact-cell">
+        <div class="impact-k">Savings Hit</div>
+        <div class="impact-v red">${p.metrics.savings}</div>
+      </div>
+    </div>
+    <div class="sim-narrative">${p.narrative}</div>
+    <div class="sim-behaviors">
+      <h6>WHAT PEOPLE IN THIS GROUP ARE DOING</h6>
+      <ul>${p.behaviors.map(b => `<li>${b}</li>`).join('')}</ul>
+    </div>
+  `;
+}
+
+/* SCENARIOS */
+let currentScen = 0;
+let radarInst = null;
+function buildScenarios() {
+  const tabs = document.getElementById('scenTabs');
+  tabs.innerHTML = DATA.scenarios.map((s, i) => `
+    <div class="scen-tab ${i === currentScen ? 'active' : ''}" data-i="${i}">
+      <div class="scen-tab-name">${s.name}</div>
+      <div class="scen-tab-prob">${s.probability}% CHANCE</div>
+      <div class="scen-prob-bar"><div class="scen-prob-fill" style="width:${s.probability * 2}%;"></div></div>
+    </div>
+  `).join('');
+  tabs.querySelectorAll('.scen-tab').forEach(el => {
+    el.addEventListener('click', () => {
+      currentScen = +el.dataset.i;
+      buildScenarios();
+      renderScenarioDetail();
+    });
+  });
+  renderScenarioDetail();
+}
+function renderScenarioDetail() {
+  const s = DATA.scenarios[currentScen];
+  const info = document.getElementById('scenInfo');
+  info.innerHTML = `
+    <h4>${s.name}</h4>
+    <div class="scen-meta">PLAYS OUT OVER ${s.timeline} · CONFIDENCE ${s.confidence}%</div>
+    <div class="scen-explainer">${s.explainer}</div>
+    <div class="scen-vars">
+      ${Object.entries(s.vars).map(([k,v]) => `
+        <div class="scen-var">
+          <div class="scen-var-k">${k}</div>
+          <div class="scen-var-v">${v}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div style="margin-top: 26px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--oxblood); letter-spacing: 0.2em;">HOW SOCIETY FEELS</div>
+    <p style="margin-top: 8px; font-family: 'Fraunces', serif; font-size: 15px; line-height: 1.6; color: var(--ink-2); font-style: italic;">${s.social}</p>
+    <div style="margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--oxblood); letter-spacing: 0.2em;">WHAT THE GOVERNMENT DOES</div>
+    <p style="margin-top: 8px; font-size: 13.5px; line-height: 1.6; color: var(--ink-2);">${s.policy}</p>
+  `;
+  renderRadar();
+}
+function renderRadar() {
+  const ctx = document.getElementById('radarChart').getContext('2d');
+  if (radarInst) radarInst.destroy();
+  const s = DATA.scenarios[currentScen];
+  radarInst = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['Inflation', 'Rupee Weakness', 'Fuel Prices', 'Gold Stress', 'Geopolitical Risk'],
+      datasets: [{
+        label: s.name,
+        data: s.radar,
+        backgroundColor: 'rgba(107,29,29,0.18)',
+        borderColor: '#6b1d1d',
+        borderWidth: 2,
+        pointBackgroundColor: '#6b1d1d',
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        r: {
+          beginAtZero: true, max: 5,
+          ticks: { stepSize: 1, font: { size: 10 }, color: '#8a8268', backdropColor: 'transparent' },
+          grid: { color: '#d9d0b9' },
+          angleLines: { color: '#d9d0b9' },
+          pointLabels: { font: { family: "'JetBrains Mono', monospace", size: 11 }, color: '#161513' }
+        }
+      }
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  buildTicker();
+  buildReadings();
+  buildTimeline();
+  buildPolicy();
+  buildStressGrid();
+  buildHeatmap();
+  buildForexChart();
+  buildDeficitChart();
+  buildAnalogs();
+  buildTransmission();
+  buildPersonas();
+  buildScenarios();
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        animateStress();
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  io.observe(document.getElementById('stressNum'));
+
+  const sectionFade = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('section').forEach(s => {
+    s.classList.add('fade-up');
+    sectionFade.observe(s);
+  });
+});
+</script>
+</body>
+</html>
